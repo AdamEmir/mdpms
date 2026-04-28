@@ -6,7 +6,6 @@
 
     <form method="POST" action="{{ route('login.store') }}" class="space-y-5" novalidate>
         @csrf
-
         <div>
             <label for="email" class="block text-sm font-medium text-slate-700">Email</label>
             <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="email"
@@ -27,7 +26,7 @@
             <label for="remember" class="ml-2 block text-sm text-slate-700">Remember me</label>
         </div>
 
-        <button type="submit" class="flex w-full justify-center rounded-md bg-slate-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900">
+        <button type="submit" class="flex w-full justify-center rounded-md bg-slate-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-slate-900">
             Log in
         </button>
     </form>
