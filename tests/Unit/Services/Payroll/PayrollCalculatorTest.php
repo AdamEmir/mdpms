@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Employee;
 use App\Services\Payroll\PayrollBreakdown;
 use App\Services\Payroll\PayrollCalculator;
 
@@ -61,7 +62,7 @@ it('preserves the gross = basic + allowance + overtime invariant', function (flo
 ]);
 
 it('uses Employee model attributes when calculating from a model', function () {
-    $employee = new App\Models\Employee([
+    $employee = new Employee([
         'basic_salary' => '4000.00',
         'allowance' => '600.00',
         'overtime_hours' => 10,
