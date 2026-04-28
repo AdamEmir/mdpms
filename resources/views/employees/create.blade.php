@@ -1,0 +1,11 @@
+@extends('layouts.app')
+@section('title', 'New employee')
+
+@section('content')
+    <h1 class="mb-6 text-2xl font-semibold tracking-tight text-slate-900">New employee</h1>
+    <div class="max-w-2xl rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+        <form method="POST" action="{{ route('employees.store') }}">
+            @include('employees._form', ['submitLabel' => 'Create employee'])
+        </form>
+    </div>
+@endsection
