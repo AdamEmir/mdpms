@@ -18,10 +18,10 @@ class DepartmentFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->unique()->randomElement([
+            'name' => fake()->randomElement([
                 'Engineering', 'Finance', 'Human Resources', 'Sales', 'Marketing',
                 'Operations', 'Product', 'Customer Support', 'Legal', 'Research',
-            ]).' '.fake()->unique()->numberBetween(1, 9999),
+            ]).' '.fake()->unique()->numberBetween(1, 999999),
         ];
     }
 }

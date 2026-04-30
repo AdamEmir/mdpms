@@ -1,0 +1,43 @@
+<div>
+    @include('partials.flash-messages')
+
+    <h2 class="mb-6 text-xl font-semibold text-slate-900">Create an account</h2>
+
+    <form wire:submit="submit" class="space-y-5" novalidate>
+        <div>
+            <label for="name" class="block text-sm font-medium text-slate-700">Name</label>
+            <input id="name" type="text" wire:model="name" required autofocus autocomplete="name"
+                   class="mt-1 block w-full rounded-md border-0 px-3 py-2 text-slate-900 ring-1 ring-inset ring-slate-300 focus:ring-2 focus:ring-inset focus:ring-slate-900">
+            @error('name')<p class="mt-1 text-sm text-rose-600">{{ $message }}</p>@enderror
+        </div>
+
+        <div>
+            <label for="email" class="block text-sm font-medium text-slate-700">Email</label>
+            <input id="email" type="email" wire:model="email" required autocomplete="email"
+                   class="mt-1 block w-full rounded-md border-0 px-3 py-2 text-slate-900 ring-1 ring-inset ring-slate-300 focus:ring-2 focus:ring-inset focus:ring-slate-900">
+            @error('email')<p class="mt-1 text-sm text-rose-600">{{ $message }}</p>@enderror
+        </div>
+
+        <div>
+            <label for="password" class="block text-sm font-medium text-slate-700">Password</label>
+            <input id="password" type="password" wire:model="password" required autocomplete="new-password"
+                   class="mt-1 block w-full rounded-md border-0 px-3 py-2 text-slate-900 ring-1 ring-inset ring-slate-300 focus:ring-2 focus:ring-inset focus:ring-slate-900">
+            @error('password')<p class="mt-1 text-sm text-rose-600">{{ $message }}</p>@enderror
+        </div>
+
+        <div>
+            <label for="password_confirmation" class="block text-sm font-medium text-slate-700">Confirm password</label>
+            <input id="password_confirmation" type="password" wire:model="password_confirmation" required autocomplete="new-password"
+                   class="mt-1 block w-full rounded-md border-0 px-3 py-2 text-slate-900 ring-1 ring-inset ring-slate-300 focus:ring-2 focus:ring-inset focus:ring-slate-900">
+        </div>
+
+        <button type="submit" class="flex w-full justify-center rounded-md bg-slate-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900">
+            Create account
+        </button>
+    </form>
+
+    <p class="mt-6 text-center text-sm text-slate-500">
+        Already registered?
+        <a href="{{ route('login') }}" wire:navigate class="font-medium text-slate-900 hover:underline">Log in</a>
+    </p>
+</div>
