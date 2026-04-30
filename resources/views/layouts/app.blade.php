@@ -4,17 +4,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Dashboard') &mdash; {{ config('app.name') }}</title>
+    <title>@yield('title', $title ?? 'Dashboard') &mdash; {{ config('app.name') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @livewireStyles
 </head>
 <body class="h-full bg-slate-50 text-slate-900 antialiased">
     <div class="min-h-full">
         <header class="border-b border-slate-200 bg-white">
             <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
                 <div class="flex items-center gap-8">
-                    <a href="{{ route('dashboard') }}" class="text-lg font-semibold tracking-tight text-slate-900">MDPMS</a>
+                    <a href="{{ route('dashboard') }}" wire:navigate class="text-lg font-semibold tracking-tight text-slate-900">MDPMS</a>
                     <nav class="hidden gap-1 md:flex" aria-label="Primary">
                         @php
                             $links = [
@@ -29,7 +30,7 @@
                             @php
                                 $active = request()->routeIs($link['route']) || request()->routeIs(str_replace('.index', '.*', $link['route']));
                             @endphp
-                            <a href="{{ route($link['route']) }}"
+                            <a href="{{ route($link['route']) }}" wire:navigate
                                class="rounded-md px-3 py-2 text-sm font-medium {{ $active ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
                                 {{ $link['label'] }}
                             </a>
@@ -38,29 +39,16 @@
                 </div>
                 <div class="flex items-center gap-3">
                     <span class="hidden text-sm text-slate-500 sm:inline">{{ auth()->user()?->name }}</span>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-slate-700 ring-1 ring-inset ring-slate-300 hover:bg-slate-50">
-                            Log out
-                        </button>
-                    </form>
+                    @auth
+                        <livewire:auth.logout-button />
+                    @endauth
                 </div>
             </div>
         </header>
 
         <main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-            @if (session('status'))
-                <div role="status" class="mb-4 rounded-md border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
-                    {{ session('status') }}
-                </div>
-            @endif
-            @if (session('error'))
-                <div role="alert" class="mb-4 rounded-md border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">
-                    {{ session('error') }}
-                </div>
-            @endif
-
-            @yield('content')
+            {{-- Flash banners are rendered by each page (Livewire components include resources/views/partials/flash-messages.blade.php). --}}
+            {{ $slot }}
         </main>
     </div>
 
@@ -86,5 +74,6 @@
             });
         });
     </script>
+    @livewireScripts
 </body>
 </html>
