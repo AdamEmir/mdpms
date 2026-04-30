@@ -6,17 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\PayrollRecord;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Response;
-use Illuminate\View\View;
 
 class PayslipController extends Controller
 {
-    public function show(PayrollRecord $record): View
-    {
-        $record->load('employee.department');
-
-        return view('payroll.payslip', ['record' => $record]);
-    }
-
     public function pdf(PayrollRecord $record): Response
     {
         $record->load('employee.department');
