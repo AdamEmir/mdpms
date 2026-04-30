@@ -1,19 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Livewire;
 
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\PayrollRecord;
-use Illuminate\View\View;
+use Illuminate\Contracts\View\View;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Component;
 
-class DashboardController extends Controller
+#[Layout('layouts.app')]
+#[Title('Dashboard')]
+class Dashboard extends Component
 {
-    public function index(): View
+    public function render(): View
     {
         $now = now();
 
-        return view('dashboard', [
+        return view('livewire.dashboard', [
             'departmentsCount' => Department::count(),
             'employeesCount' => Employee::count(),
             'payrollThisMonth' => PayrollRecord::query()
