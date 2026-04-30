@@ -107,10 +107,10 @@ class Index extends Component
         $this->name = $employee->name;
         $this->position = $employee->position;
         $this->formDepartmentId = $employee->department_id;
-        $this->basicSalary = (string)$employee->basic_salary;
-        $this->allowance = (string)$employee->allowance;
-        $this->overtimeHours = (int)$employee->overtime_hours;
-        $this->hourlyRate = (string)$employee->hourly_rate;
+        $this->basicSalary = (string) $employee->basic_salary;
+        $this->allowance = (string) $employee->allowance;
+        $this->overtimeHours = (int) $employee->overtime_hours;
+        $this->hourlyRate = (string) $employee->hourly_rate;
         $this->showForm = true;
     }
 
@@ -126,7 +126,7 @@ class Index extends Component
         $payload = [
             'name' => $data['name'],
             'position' => $data['position'],
-            'department_id' => (int)$data['formDepartmentId'],
+            'department_id' => (int) $data['formDepartmentId'],
             'basic_salary' => $data['basicSalary'],
             'allowance' => $data['allowance'],
             'overtime_hours' => $data['overtimeHours'],
@@ -181,8 +181,8 @@ class Index extends Component
     {
         $employees = Employee::query()
             ->with('department')
-            ->when($this->departmentId, fn($q, $id) => $q->where('department_id', $id))
-            ->when($this->search !== '', fn($q) => $q->where('name', 'like', "%{$this->search}%"))
+            ->when($this->departmentId, fn ($q, $id) => $q->where('department_id', $id))
+            ->when($this->search !== '', fn ($q) => $q->where('name', 'like', "%{$this->search}%"))
             ->orderBy('name')
             ->paginate(10);
 
